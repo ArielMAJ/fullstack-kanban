@@ -1,7 +1,5 @@
-import bcrypt from "bcryptjs";
 import { RequestHandler, type Request } from "express";
-import jwt from "jsonwebtoken";
-import User from "../models/User";
+import * as userService from "../services/user";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -41,25 +39,13 @@ export const register: RequestHandler = async (req: RegisterReq, res) => {
     return;
   }
 
-  console.log("Password before hashing:", req);
-  const salt = await bcrypt.genSalt(10);
-  console.log("Salt:", salt);
-  const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
-  console.log("Hashed password:", hashedPassword);
   try {
-    const existingUser = await User.findOne({ email: req.body.email });
-    if (existingUser) {
-      res.status(400).send({ message: "Email já está em uso" });
-      return;
-    }
-
-    const user = new User({
+    await userService.register({
       username: req.body.username,
       email: req.body.email,
-      password: hashedPassword,
+      password: req.body.password,
     });
-    await user.save();
+
     res.status(201).send({ message: "Usuário registrado com sucesso" });
   } catch (error) {
     res.status(400).send({ message: error.message });
@@ -81,29 +67,20 @@ export const login: RequestHandler = async (req: LoginReq, res) => {
     return;
   }
   try {
-    const user = await User.findOne({ email: req.body.email }).select(
-      "+password"
-    );
-    console.log("User found:", user);
-    if (user && (await bcrypt.compare(req.body.password, user.password))) {
-      const token = jwt.sign({ id: user._id }, process.env["SECRET_KEY"]!, {
-        expiresIn: "1h",
-      });
-      res.status(200).json({ token });
-    } else {
+    const loginInfo = await userService.login({
+      email: req.body.email,
+      password: req.body.password,
+    });
+    if (!loginInfo) {
       res.status(400).send({ message: "Credenciais inválidas" });
     }
   } catch (error) {
-    if (error instanceof Error) {
-      res.status(500).send({ message: error.message });
-    } else {
-      res.status(500).send({ message: "Erro interno do servidor" });
-    }
+    res.status(500).send({ message: error.message });
   }
 };
 
 export const me: RequestHandler = async (req, res) => {
-  const user = await User.findById(req.user!.id);
+  const user = await userService.me(req.user!.id);
   // .select("-password");
   if (!user) {
     res.status(404).send({ message: "Usuário não encontrado" });

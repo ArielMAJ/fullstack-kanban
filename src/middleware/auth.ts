@@ -1,3 +1,5 @@
+///<reference path="../types.d.ts" />
+
 import jwt from "jsonwebtoken";
 import { RequestHandler } from "express";
 
