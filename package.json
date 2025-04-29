@@ -1,0 +1,32 @@
+{
+  "name": "senai-express-teste",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.14.0"
+  },
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "dev:deno": "deno run --allow-all --env-file --watch src/main.ts",
+    "start": "tsx src/main.ts",
+    "start:db": "docker compose up -d"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3",
+    "@types/express": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.9"
+  }
+}

@@ -1,0 +1,140 @@
+type: collection.insomnia.rest/5.0
+name: Scratch Pad
+meta:
+  id: wrk_scratchpad
+  created: 1745870417259
+  modified: 1745870417259
+collection:
+  - url: http://localhost:8080/me
+    name: New Request
+    meta:
+      id: req_3a7940b9ff3147e5a3b93873879b1507
+      created: 1745874250457
+      modified: 1745875086259
+      isPrivate: false
+      sortKey: -1745874250457
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/11.0.2
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGZlZjM5N2UyN2E2OTE0OTVhNTkwOSIsImlhdCI6MTc0NTg3NDg2NCwiZXhwIjoxNzQ1ODc4NDY0fQ.tYyb1Puzw-7EqAKa14wX9CHbfDMhKJ8VOZHdaHZS484
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/register
+    name: New Request
+    meta:
+      id: req_8a85575960794396b5ef41b5ada69c1b
+      created: 1745874411592
+      modified: 1745874735019
+      isPrivate: false
+      sortKey: -1745874411592
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username": "test",
+        	"email": "test@example.com",
+        	"password": "helloworld"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.0.2
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/login
+    name: New Request
+    meta:
+      id: req_83eae616384e47a0bebd63430a8051a1
+      created: 1745874772571
+      modified: 1745874863030
+      isPrivate: false
+      sortKey: -1745874772571
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "test@example.com",
+        	"password": "helloworld"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/11.0.2
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/protected
+    name: New Request
+    meta:
+      id: req_1fa05eb9c2684b439baad5423e809b26
+      created: 1745874872547
+      modified: 1745875051996
+      isPrivate: false
+      sortKey: -1745874872547
+    method: GET
+    parameters:
+      - id: pair_c88fd0e418c54c87a3597649026b855d
+        name: Authorization
+        disabled: false
+    headers:
+      - name: User-Agent
+        value: insomnia/11.0.2
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGZlZjM5N2UyN2E2OTE0OTVhNTkwOSIsImlhdCI6MTc0NTg3NDg2NCwiZXhwIjoxNzQ1ODc4NDY0fQ.tYyb1Puzw-7EqAKa14wX9CHbfDMhKJ8VOZHdaHZS484
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1745874247259
+    modified: 1745875397198
+  cookies:
+    - key: .Tunnels.Relay.WebForwarding.Cookies
+      value: CfDJ8Cs4yarcs6pKkdu0hlKHsZsCKJ8ekkuH-JDixl27P5y58NniYkCk3Il1x4eHmWyo6jqG8KDWKEJ-AdGq9c3-w1dKLDBM2Ed1nnznEoz4dVDTSgNmtysyumzlIucQwuwZeHVIJgbICO_LnD2P0vuiQwbgtIcf2GFDK6zOANxLaruKCuQ94OR_HRDmCjVFjm9exrfGRNvb5c4VSf5pr4f7yTeuwYNKoig7ber5WMVZxkTeUQsZJzvGP2LQp2WI3B5e9wQNNp-d4iNDyUo0ME4cr5z6MI7Ngatz2hld1KHW-66ETzvDku7xFYGVgJEuVwgUkQVLnoD4cetTHlB9RfX-Dej2BUT_INIzTA9_2ukvpCrn4gVoLTouR8nwO96ghb9i0Uy3EFjxIMJSYGqzVKEutpR6gY-TlN1qkFfO2JZuxMuUYOBnslVcDK4ZRE4H6a3DYMVPPwB01vXxUU3JIhHX5Ax6VY14AfI6WqYvyBgK9buaxw15QpNCsWqS2GZ28rh1mePCcrKw-IaIz0Ypb9U8g9gX5jiP_NKQXBd6MpUV5d4A5FudrKYiw98W9tin4JSnN4NGPCqsJzcMNDcaflUfXxaBQfGCw_9QcdUFHRepEzUDRSmsdXFzb5LIbpR0_vhsqWUCzK0VNsYbCENXoBD0Z_d6nxR48iwQXk8wGGdtm0MKjd41WiijESqGVPBXfIsBDSKtUnBAwbKEYuIqe-dBWYJ1hRnHUblOXtC3t_ZVpAURSZzQHFNsuw3Qx10wZZDpGDL5fGBUYDT9c_Iu5csTBR4Uc27ykMnwx6Nn-pBvzez4yDLr7_UQoSxaHs6Wt4Ql-Sw72BTs3GvA3lWkeQ8-FgnkUcCNGs-FbX82dKnMAxzvqtvZbT9SwVBffWIVniA6JCCg4QO5GKDp_gGwmOysPqcyFnGoLtT3oXlSw_m9t1X8Ix3YmX0pojI_9a8u2yeOr8ojmHq3X5OqU5CdJbU5Y3XKnwZk4vphIeBW6-RAEmtb
+      domain: turbo-telegram-6vwj6x44rpjc55rq-8080.app.github.dev
+      path: /
+      secure: true
+      hostOnly: true
+      creation: 2025-04-28T21:04:18.616Z
+      lastAccessed: 2025-04-28T21:23:17.197Z
+      sameSite: none
+      id: cccf31c7-ba46-40ab-b78b-da6b5dd38cae
+environments:
+  name: Base Environment
+  meta:
+    id: env_99d30891da4bdcebc63947a8fc17f076de878684
+    created: 1745874246579
+    modified: 1745874246579
+    isPrivate: false

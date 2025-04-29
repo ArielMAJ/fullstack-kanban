@@ -3,11 +3,18 @@ import { RequestHandler } from "express";
 
 const authenticateToken: RequestHandler = (req, res, next) => {
   const token = req.header("Authorization")?.split(" ")[1];
-  if (!token) return res.status(401).send("Acesso negado");
+  if (!token) {
+    res.status(401).send({ message: "Acesso negado" });
+    return;
+  }
 
-  jwt.verify(token, Deno.env.get("SECRET_KEY")!, (err, user) => {
-    if (err) return res.status(403).send("Token inválido");
-    req.user = user;
+  jwt.verify(token, process.env["SECRET_KEY"]!, (err, user) => {
+    if (err) {
+      res.status(403).send({ message: "Token inválido" });
+      return;
+    }
+    req.user = user as { id: number };
+    console.log(req.user);
     next();
   });
 };
