@@ -9,15 +9,13 @@ export type RegisterReq = {
 };
 
 export const register = async (req: RegisterReq) => {
-  console.log("Password before hashing:", req);
-
   const salt = await bcrypt.genSalt(10);
   console.log("Salt:", salt);
 
   const hashedPassword = await bcrypt.hash(req.password, salt);
   console.log("Hashed password:", hashedPassword);
 
-  const existingUser = await User.findOne({ email: req.email });
+  const existingUser = await User.findOne({ where: { email: req.email } });
   if (existingUser) {
     throw new Error("Email já está em uso");
   }
@@ -36,10 +34,10 @@ export type LoginReq = {
 };
 
 export const login = async (req: LoginReq) => {
-  const user = await User.findOne({ email: req.email }).select("+password");
-  console.log("User found:", user);
+  const user = await User.findOne({ where: { email: req.email } });
+  console.log("User found:", user.dataValues);
   if (user && (await bcrypt.compare(req.password, user.password))) {
-    const token = jwt.sign({ id: user._id }, process.env["SECRET_KEY"]!, {
+    const token = jwt.sign({ id: user.id }, process.env["SECRET_KEY"]!, {
       expiresIn: "1h",
     });
     return { token };
@@ -48,7 +46,7 @@ export const login = async (req: LoginReq) => {
 };
 
 export const me = async (userId: number) => {
-  const user = await User.findById(userId);
+  const user = await User.findByPk(userId);
 
   return user;
 };

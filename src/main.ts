@@ -1,5 +1,5 @@
 import cors from "cors";
-import dotenv from "dotenv";
+import "dotenv/config";
 import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
@@ -8,9 +8,7 @@ import * as db from "./database/configdb.js";
 import protectedRouter from "./routes/protected.js";
 import userRouter from "./routes/user.js";
 import User from "./models/User.js";
-import mongoose from "mongoose";
 
-dotenv.config();
 db.connect();
 
 const app = express();
@@ -30,7 +28,7 @@ app.use(protectedRouter);
 
 // Endpoint para resetar o banco de dados (Para testes)
 app.post("/reset", async (req, res) => {
-  await User.deleteMany({});
+  await User.destroy({ where: {}, truncate: true });
 
   res.status(200).json({ message: "Banco de dados resetado com sucesso" });
 });
