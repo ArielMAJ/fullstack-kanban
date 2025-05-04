@@ -1,6 +1,7 @@
+: ${APP_HOST:="http://localhost:8080"}
 echo registro ok
 curl --request POST \
-  --url http://localhost:8080/register \
+  --url $APP_HOST/register \
   --header 'Content-Type: application/json' \
   --data '{
 	"username": "test",

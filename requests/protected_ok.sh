@@ -5,7 +5,10 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 
+: ${APP_HOST:="http://localhost:8080"}
+
+echo protected ok
 curl --request GET \
-  --url 'http://localhost:8080/protected' \
+  --url $APP_HOST/protected \
   --header "Authorization: Bearer $1"
 echo
