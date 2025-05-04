@@ -1,5 +1,5 @@
 import { RequestHandler, type Request } from "express";
-import * as userService from "../services/user";
+import * as userService from "../services/user.js";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
