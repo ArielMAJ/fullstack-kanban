@@ -1,4 +1,4 @@
-APP_HOST="https://senai-express-mongodb.vercel.app"
+APP_HOST="https://senai-express-postgres.vercel.app"
 export APP_HOST
 bash ./requests/reset.sh
 bash ./requests/registro_ok.sh
