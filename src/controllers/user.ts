@@ -63,8 +63,8 @@ type LoginReq = Request<
 export const login: RequestHandler = async (req: LoginReq, res) => {
   console.log("Login request:", req.body);
   if (!req.body || !req.body.email || !req.body.password) {
-    res.status(400).send({ message: "Email e senha são obrigatórios" });
-    return;
+      res.status(400).send({ message: "Email e senha são obrigatórios" });
+      return;
   }
   try {
     const loginInfo = await userService.login({
@@ -72,8 +72,12 @@ export const login: RequestHandler = async (req: LoginReq, res) => {
       password: req.body.password,
     });
     if (!loginInfo) {
-      res.status(400).send({ message: "Credenciais inválidas" });
+        res.status(400).send({ message: "Credenciais inválidas" });
+        return
     }
+    res.status(200).json({
+      token: loginInfo.token,
+    });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
