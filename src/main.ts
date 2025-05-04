@@ -4,10 +4,10 @@ import express from "express";
 import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import process from "node:process";
-import * as db from "./database/configdb.ts";
-import protectedRouter from "./routes/protected.ts";
-import userRouter from "./routes/user.ts";
-import User from "./models/User.ts";
+import * as db from "./database/configdb";
+import protectedRouter from "./routes/protected";
+import userRouter from "./routes/user";
+import User from "./models/User";
 import mongoose from "mongoose";
 
 dotenv.config();
