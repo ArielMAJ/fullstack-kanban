@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { Options, Sequelize } from "sequelize";
 import pg from "pg";
 
 const sequelize = new Sequelize(
@@ -9,6 +9,15 @@ const sequelize = new Sequelize(
     host: process.env["POSTGRES_DB_HOST"] || "localhost",
     dialect: "postgres",
     dialectModule: pg,
+    dialectOptions:
+      (process.env["POSTGRES_DB_HOST"] || "localhost") === "localhost"
+        ? {}
+        : {
+            ssl: {
+              require: true,
+              rejectUnauthorized: false,
+            },
+          },
   }
 );
 
