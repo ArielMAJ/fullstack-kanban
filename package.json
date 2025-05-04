@@ -2,7 +2,7 @@
   "name": "senai-express-teste",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/main.js",
   "type": "module",
   "dependencies": {
     "bcryptjs": "^3.0.2",
@@ -17,7 +17,8 @@
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "dev:deno": "deno run --allow-all --env-file --watch src/main.ts",
-    "start": "tsx src/main.ts",
+    "build": "tsc",
+    "start": "node dist/main.js",
     "start:db": "docker compose up -d"
   },
   "keywords": [],
