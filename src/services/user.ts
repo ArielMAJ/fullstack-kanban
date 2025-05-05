@@ -35,12 +35,14 @@ export type LoginReq = {
 
 export const login = async (req: LoginReq) => {
   const user = await User.findOne({ where: { email: req.email } });
-  console.log("User found:", user.dataValues);
-  if (user && (await bcrypt.compare(req.password, user.password))) {
-    const token = jwt.sign({ id: user.id }, process.env["SECRET_KEY"]!, {
-      expiresIn: "1h",
-    });
-    return { token };
+  if (user) {
+    console.log("User found:", user.dataValues);
+    if (await bcrypt.compare(req.password, user.password)) {
+      const token = jwt.sign({ id: user.id }, process.env["SECRET_KEY"]!, {
+        expiresIn: "1h",
+      });
+      return { token };
+    }
   }
   return undefined;
 };

@@ -7,6 +7,7 @@ import process from "node:process";
 import * as db from "./database/configdb.js";
 import protectedRouter from "./routes/protected.js";
 import userRouter from "./routes/user.js";
+import todoRouter from "./routes/todo.js";
 import User from "./models/User.js";
 
 db.connect();
@@ -25,6 +26,7 @@ app.use(limiter);
 
 app.use(userRouter);
 app.use(protectedRouter);
+app.use(todoRouter);
 
 // Endpoint para resetar o banco de dados (Para testes)
 app.post("/reset", async (req, res) => {
