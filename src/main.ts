@@ -5,10 +5,11 @@ import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import process from "node:process";
 import * as db from "./database/configdb.js";
-import protectedRouter from "./routes/protected.js";
-import userRouter from "./routes/user.js";
-import todoRouter from "./routes/todo.js";
+import loggerMiddleware from "./middleware/log.js";
 import User from "./models/User.js";
+import protectedRouter from "./routes/protected.js";
+import todoRouter from "./routes/todo.js";
+import userRouter from "./routes/user.js";
 
 db.connect();
 
@@ -23,6 +24,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(limiter);
+app.use(loggerMiddleware)
 
 app.use(userRouter);
 app.use(protectedRouter);
