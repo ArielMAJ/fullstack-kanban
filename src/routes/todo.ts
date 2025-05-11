@@ -1,13 +1,13 @@
 import express from "express";
-import authenticateToken from "../middleware/auth.js";
 import {
-  fetchOne,
+  create,
+  deleteTodo,
   fetchAll,
+  fetchOne,
   updateFull,
   updatePartial,
-  deleteTodo,
-  create,
 } from "../controllers/todo.js";
+import authenticateToken from "../middleware/auth.js";
 
 const router = express.Router();
 
