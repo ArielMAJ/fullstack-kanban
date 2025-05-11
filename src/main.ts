@@ -5,11 +5,13 @@ import rateLimit from "express-rate-limit";
 import helmet from "helmet";
 import process from "node:process";
 import * as db from "./database/configdb.js";
+import dbSequelize from "./database/configdb.js";
 import loggerMiddleware from "./middleware/log.js";
 import User from "./models/User.js";
 import protectedRouter from "./routes/protected.js";
 import todoRouter from "./routes/todo.js";
 import userRouter from "./routes/user.js";
+import Todo from "./models/Todo.js";
 
 db.connect();
 
@@ -24,7 +26,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(limiter);
-app.use(loggerMiddleware)
+app.use(loggerMiddleware);
 
 app.use(userRouter);
 app.use(protectedRouter);
@@ -32,7 +34,9 @@ app.use(todoRouter);
 
 // Endpoint para resetar o banco de dados (Para testes)
 app.post("/reset", async (req, res) => {
-  await User.destroy({ where: {}, truncate: true });
+  await Todo.destroy({ where: {}, truncate: true, cascade: true });
+  await User.destroy({ where: {}, truncate: true, cascade: true });
+  await dbSequelize.sync({ force: true });
 
   res.status(200).json({ message: "Banco de dados resetado com sucesso" });
 });
