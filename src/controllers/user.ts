@@ -48,7 +48,11 @@ export const register: RequestHandler = async (req: RegisterReq, res) => {
 
     res.status(201).send({ message: "Usuário registrado com sucesso" });
   } catch (error) {
-    res.status(400).send({ message: error.message });
+    if (error instanceof Error) {
+      res.status(400).send({ message: error.message });
+      return;
+    }
+    res.status(400).send({ message: "Erro ao registrar usuário" });
   }
 };
 
@@ -79,7 +83,11 @@ export const login: RequestHandler = async (req: LoginReq, res) => {
       token: loginInfo.token,
     });
   } catch (error) {
-    res.status(500).send({ message: error.message });
+    if (error instanceof Error) {
+      res.status(400).send({ message: error.message });
+      return;
+    }
+    res.status(400).send({ message: "Erro ao registrar usuário" });
   }
 };
 
