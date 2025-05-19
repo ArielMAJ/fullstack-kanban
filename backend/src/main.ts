@@ -25,7 +25,9 @@ const limiter = rateLimit({
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
-app.use(limiter);
+if (process.env.NODE_ENV === "production") {
+  app.use(limiter);
+}
 app.use(loggerMiddleware);
 
 app.use(userRouter);
