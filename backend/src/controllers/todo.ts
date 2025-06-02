@@ -4,14 +4,17 @@ import * as todoService from "../services/todo.js";
 
 const createReqSchema = z.object({
   content: z.string({ required_error: "Conteúdo é obrigatório" }),
+  column: z.number().int().min(0).max(2).optional(),
 });
 const updateFullReqSchema = z.object({
   content: z.string({ required_error: "Conteúdo é obrigatório" }),
   done: z.boolean({ required_error: "Estado é obrigatório" }),
+  column: z.number({ required_error: "Conteúdo é obrigatório" }).int().min(0).max(2),
 });
 const updatePartialReqSchema = z.object({
   content: z.string().optional(),
   done: z.boolean().optional(),
+  column: z.number().int().min(0).max(2).optional(),
 });
 
 class BadRequestError extends Error {
@@ -55,7 +58,11 @@ async function validateOwnership(userId: number, todoId: number) {
 export const create: RequestHandler = async (req, res) => {
   try {
     const reqData = createReqSchema.parse(req.body);
-    const todo = await todoService.createTodo(req.user.id, reqData.content);
+    const todo = await todoService.createTodo(
+      req.user.id,
+      reqData.content,
+      reqData.column ?? 0
+    );
     res.status(201).send({
       id: todo.id,
     });
@@ -97,7 +104,12 @@ export const updateFull: RequestHandler = async (req, res) => {
     const todoId = parseTodoId(req.params.id);
     const reqData = updateFullReqSchema.parse(req.body);
     await validateOwnership(req.user.id, todoId);
-    await todoService.updateTodo(todoId, reqData.content, reqData.done);
+    await todoService.updateTodo(
+      todoId,
+      reqData.content,
+      reqData.done,
+      reqData.column ?? null
+    );
     res.status(200).send({
       message: "Todo atualizado com sucesso",
     });
@@ -114,7 +126,8 @@ export const updatePartial: RequestHandler = async (req, res) => {
     await todoService.updateTodo(
       todoId,
       reqData.content ?? null,
-      reqData.done ?? null
+      reqData.done ?? null,
+      reqData.column ?? null
     );
     res.status(200).send({
       message: "Todo atualizado com sucesso",

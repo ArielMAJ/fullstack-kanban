@@ -8,9 +8,10 @@ interface TodoAttributes {
   userId: number;
   content: string;
   done: boolean;
+  column: number; // 0: todo, 1: doing, 2: done
 }
 
-type TodoCreationAttributes = Optional<TodoAttributes, "id">;
+type TodoCreationAttributes = Optional<TodoAttributes, "id" | "column">;
 
 class Todo
   extends Model<TodoAttributes, TodoCreationAttributes>
@@ -20,6 +21,7 @@ class Todo
   declare userId: number;
   declare content: string;
   declare done: boolean;
+  declare column: number;
 }
 
 Todo.init(
@@ -45,6 +47,11 @@ Todo.init(
     done: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+    },
+    column: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
     },
   },
   {

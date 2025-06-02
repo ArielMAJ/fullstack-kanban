@@ -2,16 +2,17 @@ import cors from "cors";
 import "dotenv/config";
 import express from "express";
 import rateLimit from "express-rate-limit";
+import fs from "fs";
 import helmet from "helmet";
 import process from "node:process";
-import * as db from "./database/configdb.js";
-import dbSequelize from "./database/configdb.js";
+import swaggerUi from "swagger-ui-express";
+import dbSequelize, * as db from "./database/configdb.js";
 import loggerMiddleware from "./middleware/log.js";
+import Todo from "./models/Todo.js";
 import User from "./models/User.js";
 import protectedRouter from "./routes/protected.js";
 import todoRouter from "./routes/todo.js";
 import userRouter from "./routes/user.js";
-import Todo from "./models/Todo.js";
 
 db.connect();
 
@@ -33,6 +34,15 @@ app.use(loggerMiddleware);
 app.use(userRouter);
 app.use(protectedRouter);
 app.use(todoRouter);
+
+try {
+  const swaggerDocument = JSON.parse(
+    fs.readFileSync("./swagger.json", "utf-8")
+  );
+  app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+} catch (error) {
+  console.error("Erro ao carregar swagger.json:", error);
+}
 
 // Endpoint para resetar o banco de dados (Para testes)
 app.post("/reset", async (req, res) => {

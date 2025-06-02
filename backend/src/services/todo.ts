@@ -7,11 +7,16 @@ export class TodoNotFoundError extends Error {
   }
 }
 
-export const createTodo = async (userId: number, content: string) => {
+export const createTodo = async (
+  userId: number,
+  content: string,
+  column: number = 0
+) => {
   return await Todo.create({
     userId,
     content,
     done: false,
+    column,
   });
 };
 
@@ -34,7 +39,8 @@ export const getTodoById = async (id: number) => {
 export const updateTodo = async (
   id: number,
   content: string | null,
-  done: boolean | null
+  done: boolean | null,
+  column: number | null = null
 ) => {
   const todo = await getTodoById(id);
   if (!todo) {
@@ -43,6 +49,7 @@ export const updateTodo = async (
   return await todo.update({
     content: content ?? todo.content,
     done: done ?? todo.done,
+    column: column ?? todo.column,
   });
 };
 
