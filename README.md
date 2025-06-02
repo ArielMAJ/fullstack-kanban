@@ -1,5 +1,3 @@
-# senai-express-teste
-
 ## Instalação
 ### Backend
 - Instale as dependências com `pnpm install`
