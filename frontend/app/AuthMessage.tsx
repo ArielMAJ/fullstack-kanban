@@ -1,4 +1,4 @@
-import type { AuthMessage as AuthMessageType } from "./layout";
+import type { AuthMessage as AuthMessageType } from "./routes/auth/layout";
 
 export default function AuthMessage({
   message,

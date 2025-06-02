@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, useOutletContext } from "react-router";
-import { Input } from "~/Input";
+import { Input } from "~/components/Input";
 import type { Route } from "./+types/login";
-import AuthMessage from "./AuthMessage";
+import AuthMessage from "../../AuthMessage";
 import type { AuthContext } from "./layout";
 
 export function meta({}: Route.MetaArgs) {
