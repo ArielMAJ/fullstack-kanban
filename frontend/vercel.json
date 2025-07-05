@@ -1,9 +1,3 @@
 {
-	"version": 2,
-	"rewrites": [
-		{
-            "source": "/api/:match*",
-            "destination": "https://senai-express-postgres-backend.vercel.app/:match*"
-        }
-	]
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
